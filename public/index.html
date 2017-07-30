@@ -359,10 +359,12 @@
 
     })
 
-    $('a[href*=\\#]').on('click', function(event){     
-    event.preventDefault();
-    $('html,body').animate({scrollTop:$(this.hash).offset().top - 74}, 500);
-});
+    $('a[href*=\\#]').on('click', function(event){       
+      event.preventDefault();
+      $('html,body').animate({scrollTop:$(this.hash).offset().top - 74}, 500);
+      $('.w--current').removeClass('w--current');
+      $(this).addClass('w--current')
+    });
 </script>
 
 </body>
