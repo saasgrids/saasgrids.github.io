@@ -16,3 +16,10 @@ gulp.task('gzip', () => {
     .pipe(gulp.dest('./public/dist'));
 });
 
+gulp.task('pgzip', () => {
+  return gulp.src( 'public_src/*')
+    .pipe(gzip())
+    .pipe(gulp.dest('./public'));
+});
+
+

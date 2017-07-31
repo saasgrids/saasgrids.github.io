@@ -26,11 +26,11 @@ var api = require('./controller.js');
 app.post('/earlyacess/', api.earlyAccess);
 
 // viewed at http://localhost:8080
-app.get('/', function(req, res) {
-    res.sendFile(path.join(public + "index.html"));
-});
+// app.get('/', function(req, res) {
+//     res.sendFile(path.join(public + "index.html"));
+// });
 
-app.use('/', expressStaticGzip(public));
+app.use('/', expressStaticGzip(public, {enableBrotli: true}));
 
 
 
