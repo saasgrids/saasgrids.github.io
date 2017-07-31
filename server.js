@@ -4,7 +4,7 @@ var express   = require('express');
 var mongoose  = require('mongoose');
 var path      = require('path');
 var bodyParser = require('body-parser');
-var compression = require('compression');
+var expressStaticGzip = require("express-static-gzip");
 
 
 var app       = express();
@@ -12,7 +12,6 @@ var app       = express();
 // connect to Mongo when the app initializes
 mongoose.connect(process.env.DB_URL);
 
-app.use(compression);
 
 app.use(bodyParser());
   // app.use(app.router);
@@ -31,7 +30,8 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(public + "index.html"));
 });
 
-app.use('/', express.static(public));
+app.use('/', expressStaticGzip(public));
+
 
 
 app.listen(process.env.PORT);

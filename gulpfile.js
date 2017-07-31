@@ -9,3 +9,10 @@ gulp.task('css', () => {
     .pipe(gzip())
     .pipe(gulp.dest('./public/dist'));
 });
+
+gulp.task('gzip', () => {
+  return gulp.src( 'src/*')
+    .pipe(gzip())
+    .pipe(gulp.dest('./public/dist'));
+});
+
