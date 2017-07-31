@@ -15,5 +15,10 @@
     "fullcontact": "^1.0.0",
     "mongoose": "^4.11.4",
     "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-gzip": "^1.4.0"
   }
 }
