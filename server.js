@@ -3,14 +3,18 @@
 var express   = require('express');
 var mongoose  = require('mongoose');
 var path      = require('path');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
+var compression = require('compression');
+
 
 var app       = express();
 
 // connect to Mongo when the app initializes
 mongoose.connect(process.env.DB_URL);
 
-  app.use(bodyParser());
+app.use(compression);
+
+app.use(bodyParser());
   // app.use(app.router);
 
 var public = __dirname + "/public/";
