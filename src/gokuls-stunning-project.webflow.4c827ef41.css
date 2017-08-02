@@ -637,6 +637,9 @@ html.w-mod-js *[data-ix="fade-in-on-scroll"] {
   .main-image {
     margin-top: 49px;
   }
+  .newsletter-form {
+    width: 100%;
+  }
 }
 
 @media (max-width: 767px) {
@@ -657,6 +660,7 @@ html.w-mod-js *[data-ix="fade-in-on-scroll"] {
   }
   .section.main {
     margin-top: 51px;
+    background-image: none;
   }
   .nav-menu {
     padding-right: 12px;
@@ -700,5 +704,8 @@ html.w-mod-js *[data-ix="fade-in-on-scroll"] {
   }
   .press-logo {
     width: 28%;
+  }
+  section.main {
+    background-image: none;
   }
 }
