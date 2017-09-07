@@ -17,6 +17,7 @@ app.use(bodyParser());
   // app.use(app.router);
 
 var public = __dirname + "/public/";
+var src    = __dirname + "/public_src/";
 
 
 
@@ -26,11 +27,11 @@ var api = require('./controller.js');
 app.post('/earlyacess/', api.earlyAccess);
 
 // viewed at http://localhost:8080
-// app.get('/', function(req, res) {
-//     res.sendFile(path.join(public + "index.html"));
-// });
+app.get('/', function(req, res) {
+    res.sendFile(path.join(src + "index.html"));
+});
 
-app.use('/', expressStaticGzip(public, {enableBrotli: true}));
+app.use('/', expressStaticGzip(public));
 
 
 
