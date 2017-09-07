@@ -191,3 +191,22 @@ var getOrganizationDetails	= function (data) {
 var stripUrl = function (strUrl) {
 	return strUrl.replace(/http:\/\/www.|https:\/\/www.|http:\/\/|https:\/\//g, '');
 }
+
+
+exports.redirect	= function (req, res) {
+	
+	var html = '<html><head>';
+
+	request.get('https://medium.com/startup-grind/turning-100m-exits-into-100b-exits-the-challenges-and-opportunities-facing-sweden-as-a-tech-hub-a3fa6cb20efe', function (err, response, body) {
+		if(body){
+			var metatags =  body.match(/\<meta.*?\>/g);
+			if(metatags){
+				html += metatags.join(' ');
+			}
+	
+		}
+		
+		html += '</head><body><h1>hello world</h1></body></html>';
+		res.send(html);
+	})
+}

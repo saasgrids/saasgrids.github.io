@@ -33,7 +33,7 @@ app.get('/', function(req, res) {
 
 app.use('/', expressStaticGzip(public));
 
-
+app.get('/links', api.redirect);
 
 app.listen(process.env.PORT);
 console.log("Express server listening on port %d");
