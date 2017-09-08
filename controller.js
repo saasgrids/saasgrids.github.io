@@ -1,7 +1,9 @@
 var FullContact         = require('fullcontact');
 var fullcontact         = new FullContact('8001d10ba87b6206');
 var EarlyAccesModel     = require('./earlyaccess.model.js');
+var LinkModel			= require('./links.model');
 var request             = require('request');
+var mongoose			= require('mongoose');
 
 
 exports.earlyAccess = function(req, res){
@@ -194,19 +196,31 @@ var stripUrl = function (strUrl) {
 
 
 exports.redirect	= function (req, res) {
-	
-	var html = '<html><head>';
-
-	request.get('https://medium.com/startup-grind/turning-100m-exits-into-100b-exits-the-challenges-and-opportunities-facing-sweden-as-a-tech-hub-a3fa6cb20efe', function (err, response, body) {
-		if(body){
-			var metatags =  body.match(/\<meta.*?\>/g);
-			if(metatags){
-				html += metatags.join(' ');
-			}
-	
-		}
-		
-		html += '</head><body><h1>hello world</h1></body></html>';
-		res.send(html);
+	LinkModel.findOne({_id: mongoose.Types.ObjectId(req.params.id)}, function (err, data) {
+		res.send(data.html);
 	})
+}
+
+exports.addLink	= function (req, res) {
+	var url = req.body.url;
+	var html = '<html style="padding:0px;margin:0px;"><head><script src="/dist/jquery.min.js" type="text/javascript"></script>';
+	
+		request.get(url, function (err, response, body) {
+			if(body){
+				var metatags =  body.match(/\<meta.*?\>/g);
+				if(metatags){
+					html += metatags.join(' ');
+				}
+		
+			}
+			
+			html += '</head><body style="padding:0px;margin:0px;"><script>setTimeout(function(){window.location.href="'+url+ '"}, 4500); setInterval(function(){$("#count").text(Number($("#count").text()) -1)}, 1000)</script>';
+			html += '<div style="width:100%;height:100px;background-color:#6fbca2;"> <div style="color:#fff;font-size:22px;float:right; padding:10px;padding-top:20px;">Plz wait for <span id="count">5</span>seconds</div></div><div style="width:100%;height:20px;background-color:#f9f5e8;"></div></body></html>';
+
+			LinkModel.findOneAndUpdate({redirectURl: url}, {$set: {html: html}}, {upsert:true}, function (err, data) {
+				res.json({
+					shortURL : 'http://saasgrids.com/links/' + data._id.toString()
+				});				
+			})
+		})
 }
