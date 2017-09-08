@@ -215,12 +215,14 @@ exports.addLink	= function (req, res) {
 			}
 			
 			html += '</head><body style="padding:0px;margin:0px;"><script>setTimeout(function(){window.location.href="'+url+ '"}, 4500); setInterval(function(){$("#count").text(Number($("#count").text()) -1)}, 1000)</script>';
-			html += '<div style="width:100%;height:100px;background-color:#6fbca2;"> <div style="color:#fff;font-size:22px;float:right; padding:10px;padding-top:20px;">Plz wait for <span id="count">5</span>seconds</div></div><div style="width:100%;height:20px;background-color:#f9f5e8;"></div></body></html>';
+			html += '<div style="width:100%;height:100px;background-color:#6fbca2;"> <div style="color:#fff;font-size:22px;float:right; padding:10px;padding-top:20px;">Plz wait for <span id="count">5</span>seconds</div></div><div style="width:100%;height:20px;background-color:#f9f5e8;"></div>';
+			html += '<center><a href="http://saasgrids.com?source=ads"><div style="padding:20px;"><img src="http://saasgrids.com/sales.png" width="700"> <img src="http://saasgrids.com/VS.png" width="800"></div></a></center></body></html>';
 
-			LinkModel.findOneAndUpdate({redirectURl: url}, {$set: {html: html}}, {upsert:true}, function (err, data) {
+			LinkModel.findOneAndUpdate({redirectURl: url}, {$set: {html: html}}, {upsert:true, new: true}, function (err, data) {
 				res.json({
 					shortURL : 'http://saasgrids.com/links/' + data._id.toString()
 				});				
 			})
 		})
 }
+
