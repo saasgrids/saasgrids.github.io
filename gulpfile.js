@@ -22,4 +22,8 @@ gulp.task('pgzip', () => {
     .pipe(gulp.dest('./public'));
 });
 
+gulp.task('watch', () => {
+  gulp.watch('./**/*', ['css']);
+});
+
 
